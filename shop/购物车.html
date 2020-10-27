@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/购物车.css">
+    <script src="./js/jquery-1.12.4.js"></script>
+</head>
+
+<body>
+    <div class="site-nav">
+        <div class="sn-bd">
+            <p class="sn-back-home">
+                <a href="">拼多多首页</a>
+            </p>
+            <p class="login-info">
+                <em>欢迎来到拼多多</em>
+                <a class="sn-login" href="./登录.html" target="_blank">请登录</a>
+                <a class="sn-register" href="./JD注册.html" target="_blank">免费注册</a>
+                <a class="sn-register2" href="">退出登录</a>
+            </p>
+        </div>
+    </div>
+    <!-- <div class="head bx">
+        <div class="logo"></div>
+        <div class="search">
+            <div class="tb">
+                淘宝
+            </div>
+            <input class="tb-input" type="text" placeholder="请输入要搜索的内容">
+            <div class="tb-but">搜索</div>
+        </div>
+    </div> -->
+    <div class="commodity bx">
+        <div class="cart">
+            <span class="cart-sp1">全部商品</span>
+            <!-- <div class="cart-sum">
+                <span class="cart-sp2">已选商品（不含运费）</span>
+                <span class="cart-sp3">0.00</span>
+                <span class="cart-sp4">结 算</span>
+            </div> -->
+        </div>
+        <div class="orange"></div>
+        <div class="grey"></div>
+    </div>
+    <div class="main bx">
+        <div class="table">
+            <div class="select">
+                <input class="check" type="checkbox" name="">
+                全选
+            </div>
+            <div class="inner">
+                商品信息
+            </div>
+            <div class="infor">
+
+            </div>
+            <div class="price">
+                单价
+            </div>
+            <div class="amount">
+                数量
+            </div>
+            <div class="sum">
+                金额
+            </div>
+            <div class="op">
+                操作
+            </div>
+        </div>
+        <!-- <div class="shangpin">
+            <div class="an">
+                <input class="check2" type="checkbox">
+            </div>
+            <div class="td-item">
+                <div class="td-inner">
+                    <img class="td-inner-img" src="./img/addas.png" alt="">
+                    <p class="td-inner-p">【进口日价】【直营】Adidas阿迪达斯外套男装立领夹克运动服上衣开衫GF3977</p>
+                </div>
+            </div>
+            <div class="td-price">
+                <span class="td-price-p1">￥</span>
+                <span class="td-price-p2">439.00</span>
+            </div>
+            <div class="td-amount">
+                <div class="td-number">
+                    <span class="td-number-a1">-</span>
+                    <div class="td-number-in1">1</div>
+                    <span class="td-number-a2">+</span>
+                </div>
+            </div>
+            <div class="td-money">
+                <span class="td-money-p1">￥</span>
+                <span class="td-money-p2">439.00</span>
+            </div>
+            <div class="td-cuozuo">
+                <span class="td-cuozuo-sp1">删除</span>
+            </div>
+        </div> -->
+    </div>
+    <div class="holder bx">
+        <div class="select1">
+            <input class="check" type="checkbox" name="" id="">
+            全选
+        </div>
+        <div class="operations">
+            <a class="a1" href="#">删除</a>
+            <a class="a2" href="#">移入收藏夹</a>
+            <a class="a3" href="#">分享</a>
+        </div>
+        <div class="floar">
+            <div class="shou">
+                <span>已选商品</span>
+                <span class="shou1">0</span>
+                <span>件</span>
+                <span class="shou2">合计（不含运费）：</span>
+                <span class="shou3">0.00</span>
+                <div class="button">结算</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录注册隐藏和打开 -->
+    <script>
+        var data3 = JSON.parse(localStorage.getItem("gwc"));
+        console.log(data3);
+        for (j = 0; j < data3.length; j++) {
+            $(".main").append(
+                `<div class="shangpin">
+                    <div class="an">
+                        <input class="check2" type="checkbox">
+                    </div>
+                    <div class="td-item">
+                        <div class="td-inner">
+                            <img class="td-inner-img" src="${data3[j].img}" alt="">
+                            <p class="td-inner-p">${data3[j].name}</p>
+                        </div>
+                    </div>
+                    <div class="td-price">
+                        <span class="td-price-p1">￥</span><span class="td-price-p2">${data3[j].price}</span>
+                    </div>
+                    <div class="td-amount">
+                        <div class="td-number">
+                            <span class="td-number-a1">-</span>
+                            <div class="td-number-in1">1</div>
+                            <span class="td-number-a2">+</span>
+                        </div>
+                    </div>
+                    <div class="td-money">
+                        <span class="td-money-p1">￥</span><span class="td-money-p2">${data3[j].price}</span>
+                    </div>
+                    <div class="td-cuozuo">
+                        <span class="td-cuozuo-sp1" onclick="shanchu(${data3[j].id})">删除</span>
+                    </div>
+                </div>`
+            )
+        //     $(".td-cuozuo-sp1").eq(j).click(function(){
+        //     $(this).parent().parent().remove();
+        // })
+        }
+
+        console.log(localStorage.getItem("name"));
+        $(function () {
+            $(".sn-login").text(localStorage.getItem("name"));
+            $(".sn-register").css("display", "none");
+            $(".sn-register2").css("display", "inline-block");
+            $(".sn-register2").click(function () {
+                $(".sn-register2").removeAttr("href");
+                $(".sn-register2").css("display", "none");
+                $(".sn-login").text("请登录");
+                $(".sn-register").css("display", "inline-block");
+            })
+        })
+
+        //全选
+        $(".check").click(function () {
+            // console.log($(".check")[0].checked);
+            if ($(".check")[0].checked === true) {
+                $(".check2").prop("checked", true);
+                $(".check").prop("checked", true);
+            }
+            if ($(".check")[0].checked === false) {
+                $(".check2").prop("checked", false);
+                $(".check").prop("checked", false);
+            }
+        })
+
+        //金额
+        $(".td-number-a2").click(function () {
+            var num = parseInt($(this).prev().html()) + 1;
+            $(this).prev().html(num);
+
+            var price = +$(this).parents(".td-amount").prev().children().last().html();
+            var price_sum = (num * price).toFixed(2);
+            $(this).parents(".td-amount").next().children().last().html(price_sum);
+
+        })
+
+        $(".td-number-a1").click(function () {
+            var num = parseInt($(this).next().html()) - 1;
+            $(this).next().html(num);
+
+            var price = +$(this).parents(".td-amount").prev().children().last().html();
+            var price_sum = (num * price).toFixed(2);
+            $(this).parents(".td-amount").next().children().last().html(price_sum);
+
+
+            if (num < 1) {
+                $(this).next().html(1);
+                $(this).parents(".td-amount").next().children().last().html(price);
+            }
+        })
+
+        //总金额
+        var countprice = 0;
+        var countnum = 0;
+        $(".shangpin").each(function () {
+            // console.log($(this).find(".check2")[0].checked);
+            $(this).find(".check2").click(function () {
+                if ($(this).find(".check2").context.checked == true) {
+                    countprice += +$(this).parent().next().next().next().next().children().last().html();
+                    countnum += parseInt($(this).parent().next().next().next().children().children().eq(1).html())
+                } else {
+                    countprice += 0;
+                    countnum += 0;
+                }
+                $(".shou3").html(countprice.toFixed(2));
+                $(".shou1").html(countnum);
+            })
+        })
+
+
+        //删除
+        function shanchu(id){
+            for(var i = data3.length-1;i>=0;i--){
+                if(parseInt(data3[i].id) === id){
+                    data3.splice(i,1);
+                    i = i - 1;
+                }
+            }
+            localStorage.setItem("gwc",JSON.stringify(data3));
+            // result();
+            window.location.reload();
+        }
+    </script>
+</body>
+
+</html>
